@@ -16,8 +16,8 @@ import {
 
 import { prettyPrint } from '@/pages/boxHooks';
 import { useState } from 'react';
-import { useAccount } from 'wagmi';
 import { CodeBlock, H1, H2, P } from '@/components/common';
+import { useWalletContext } from '@/lib/contexts';
 
 const ChainSelectorUsage = () => {
   const [chain, setChain] = useState<ChainId>(ChainId.ETHEREUM);
@@ -36,7 +36,7 @@ const ChainSelectorUsage = () => {
   );
 };
 const TokenSelectorUsage = () => {
-  const { address } = useAccount();
+  const { address } = useWalletContext();
   const chainId = ChainId.ARBITRUM;
   const [srcToken, setSrcToken] = useState<TokenInfo>(ethGasToken);
 

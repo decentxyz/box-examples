@@ -15,6 +15,8 @@ import { metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
 import { arbitrum, mainnet, optimism, polygon, base } from 'wagmi/chains';
 import '@decent.xyz/the-box/index.css';
 
+import { WalletContextProvider } from '@/lib/contexts';
+
 const getAlchemyProviders = () => {
   const providers: ReturnType<typeof alchemyProvider>[] = [];
   for (const c of ['OPTIMISM', 'ARBITRUM', 'POLYGON']) {
@@ -61,7 +63,9 @@ export default function App({ Component, pageProps }: AppProps) {
     >
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains}>
-          <Component {...pageProps} />
+          <WalletContextProvider>
+            <Component {...pageProps} />
+          </WalletContextProvider>
         </RainbowKitProvider>
       </WagmiConfig>
     </div>

@@ -12,10 +12,11 @@ import {
 } from '@decent.xyz/box-hooks';
 
 import { EstimateGasParameters, Hex, parseUnits } from 'viem';
-import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
+import { useSwitchNetwork } from 'wagmi';
 import { ClientRendered } from '@decent.xyz/box-ui';
 import { getAccount, getPublicClient, sendTransaction } from '@wagmi/core';
 import { Button, CodeBlock, H1, H2, P } from '@/components/common';
+import { useWalletContext } from '@/lib/contexts';
 
 export const prettyPrint = (obj: any) =>
   JSON.stringify(obj, bigintSerializer, 2);
@@ -28,7 +29,7 @@ export const BoxActionUser = ({
   const { actionResponse, isLoading, error } = useBoxAction(getActionArgs);
   const [hash, setHash] = useState<Hex>();
   const { switchNetworkAsync } = useSwitchNetwork();
-  const { chain } = useNetwork();
+  const { chain } = useWalletContext();
 
   if (error) {
     return <CodeBlock>Error fetching: {prettyPrint(error)}</CodeBlock>;
@@ -77,7 +78,7 @@ export const BoxActionUser = ({
 };
 
 export const Usage = () => {
-  const { address: sender } = useAccount();
+  const { address: sender } = useWalletContext();
 
   const getActionArgs: UseBoxActionArgs = {
     actionType: ActionType.NftMint,
@@ -110,7 +111,7 @@ export const Usage = () => {
 };
 
 export default function ExamplePage() {
-  const { address: sender } = useAccount();
+  const { address: sender } = useWalletContext();
 
   return (
     <Layout>

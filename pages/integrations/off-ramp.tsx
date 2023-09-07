@@ -11,15 +11,17 @@ import {
   getChainExplorerTxLink,
   useUsersBalances,
 } from '@decent.xyz/box-hooks';
+import { ClientRendered } from '@decent.xyz/box-ui';
 
 import { EstimateGasParameters, Hex, parseUnits } from 'viem';
 import { useAccount, useSwitchNetwork } from 'wagmi';
-import { ClientRendered, ChainSelector, TokenSelector } from '@decent.xyz/box-ui';
+
 import { getAccount, getPublicClient, sendTransaction } from '@wagmi/core';
 import { Button, CodeBlock, H1, H2, P } from '@/components/common';
-import Accordion from '@/components/Accordian';
+import BeamSelectors from '@/components/Integrations/BeamSelectors';
+import BeamFaqs from '@/components/Integrations/BeamFaqs';
 
-import { IntegrationContextProvider, useIntegrationContext } from '@/hooks/useIntegrationContext';
+import { SourceContextProvider, useSourceContext, useWalletContext } from '@/lib/contexts';
 
 export const prettyPrint = (obj: any) =>
   JSON.stringify(obj, bigintSerializer, 2);
@@ -33,7 +35,8 @@ export const BoxActionUser = ({
   const [hash, setHash] = useState<Hex>();
   const { switchNetworkAsync } = useSwitchNetwork();
 
-  const { srcChainId, setSrcChainId, srcToken, setSrcToken, chain, address } = useIntegrationContext();
+  const { srcChainId, setSrcChainId, srcToken, setSrcToken, txAmount, setTxAmount } = useSourceContext();
+  const { chain, address } = useWalletContext();
 
   useEffect(() => {
     async function handleChainSwitch() {
@@ -59,20 +62,15 @@ export const BoxActionUser = ({
 
   return (
     <div className={'max-w-4xl'}>
-      <div className='space-y-2 mb-4'>
-        <div className='flex items-center gap-2'>
-          <p>What chain do you want to off-ramp from?</p>        
-          <div className={'flex bg-white rounded p-3 w-fit'}>
-            <ChainSelector srcChainId={srcChainId} setSrcChainId={setSrcChainId} />
-          </div>
-        </div>
-        <div className='flex items-center gap-2 '>
-          <p>What token balance would you like to convert to fiat?</p>
-          <div className={'flex bg-white rounded p-3 w-fit'}>
-            {tokens && <TokenSelector srcToken={srcToken} setSrcToken={setSrcToken} tokens={tokens} />}
-          </div>
-        </div>
-      </div>
+      <BeamSelectors 
+        srcChainId={srcChainId} 
+        srcToken={srcToken} 
+        setSrcChainId={setSrcChainId} 
+        setSrcToken={setSrcToken} 
+        tokens={tokens} 
+        txAmount={txAmount} 
+        setTxAmount={setTxAmount} 
+      />
       <Button
         onClick={async () => {
           const account = getAccount();
@@ -110,7 +108,8 @@ export const BoxActionUser = ({
 };
 
 export const Usage = () => {
-  const { srcToken, chain, address:sender } = useIntegrationContext();
+  const { srcToken, txAmount } = useSourceContext();
+  const { chain, address:sender } = useWalletContext();
 
   const getActionArgs: UseBoxActionArgs = {
     actionType: ActionType.NftMint,
@@ -119,10 +118,10 @@ export const Usage = () => {
       chainId: ChainId.POLYGON,
       cost: {
         isNative: true,
-        amount: parseUnits('0.0005', 18), //  TODO: create an input for this in the component above and add it to integration context
+        amount: parseUnits(txAmount, 18),
       },
       signature: 'function transfer(uint256) payable',
-      args: [parseUnits('0.0005', 18)],
+      args: [parseUnits(txAmount, 18)],
     },
     srcChainId: chain?.id!,
     sender: sender!,
@@ -146,23 +145,14 @@ export default function ExamplePage() {
   return (
     <Layout>
       <ClientRendered>
-        <IntegrationContextProvider>
+        <SourceContextProvider>
           <BoxHooksContextProvider
             apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
           >
             <div className={'max-w-5xl space-y-4'}>
               <H1>Ansible Labs | Beam</H1>
               <P>Beam, by Ansible Labs, is a fiat off-ramp.  It enables users to convert tokens in their wallet to fiat in their bank account in under a minute.</P>
-              <Accordion title='Project Overview'>
-                <><p className='pb-1'>When a user creates a Beam account, it returns a unique off-ramp address on each chain so that the user simply has to transfer tokens to this address for them to be converted to fiat.  Beam handles off-ramp account creation, conversion to fiat, and deposits to the user's bank account.</p>
-                <p className='pt-1'>Beam's principle constraint is chain and token coverage.  For example, users cannot off-ramp from tokens on Optimism.  That's where The Box comes in.  This code example demonstrates how we can bridge and swap from any token a user has on any Box-supported network to a chain & token pair supported by Beam and then transfer to the user's off-ramp address all in one transaction.</p>
-                </>
-              </Accordion>
-              <Accordion title='Project Rationale'>
-                <><p className='pb-1'>On & off-ramps are tightly regulated with support restricted to a small number of networks and tokens.  By integrating The Box, users can off-ramp from any token with DeFi liquidity.  The Box equips fiat ramps with best-in-class token & chain coverage, commoditizing this competition vector so that teams like Ansible can focus exclusively on their core value prop: card & bank network execution rates.</p>
-                <p className='pt-1'>We are excited to partner with Ansible Labs to provide you with the crypto's most comprehensive off-ramp, as measured by execution rates, speed, and chain & token coverage.</p>
-                </>
-              </Accordion>
+              <BeamFaqs />
               {sender ? <><Usage /> 
                 <div className='pt-4'>
                   <H2>Key Steps:</H2>
@@ -177,7 +167,7 @@ export default function ExamplePage() {
               }
             </div>
           </BoxHooksContextProvider>
-        </IntegrationContextProvider>
+        </SourceContextProvider>
       </ClientRendered>
     </Layout>
   );
