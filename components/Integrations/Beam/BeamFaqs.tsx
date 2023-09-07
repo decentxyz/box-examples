@@ -1,4 +1,4 @@
-import Accordion from "../Accordian";
+import Accordion from "../../Accordian";
 
 const BeamFaqs = () => {
   return (

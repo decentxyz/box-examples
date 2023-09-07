@@ -19,7 +19,7 @@ import { useAccount, useSwitchNetwork } from 'wagmi';
 import { getAccount, getPublicClient, sendTransaction } from '@wagmi/core';
 import { Button, CodeBlock, H1, H2, P } from '@/components/common';
 import BeamSelectors from '@/components/Integrations/BeamSelectors';
-import BeamFaqs from '@/components/Integrations/BeamFaqs';
+import BeamFaqs from '@/components/Integrations/Beam/BeamFaqs';
 
 import { SourceContextProvider, useSourceContext, useWalletContext } from '@/lib/contexts';
 
