@@ -6,14 +6,13 @@ import Image from 'next/image';
 export const NavBar = () => {
   return (
     <nav>
-      <div className="absolute m-8 top-0 left-0 flex gap-8 items-center">
+      <div className="absolute m-8 top-0 left-0 flex gap-8 items-center z-50">
         <Image
           src="/decent-icon-black.png"
           alt="Decent Logo"
           height={40}
           width={48}
         />
-        <p className="uppercase mx-auto text-3xl font-light">Click. Transact.</p>
       </div>
       <div
         className={clsx(

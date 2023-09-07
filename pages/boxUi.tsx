@@ -78,8 +78,6 @@ const TokenSelectorUsage = () => {
   );
 };
 export default function ExamplePage() {
-  const { address } = useAccount();
-
   return (
     <Layout>
       <ClientRendered>
