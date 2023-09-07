@@ -19,6 +19,10 @@ export default function ExamplePage() {
           },
         }}
         apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
+        onTxPending={() => console.log("Initiated transaction 🚀")}
+        onTxReceipt={() => console.log("Source transaction confirmed ✅ ")}
+        onDstTxReceipt={() => console.log("Destination transaction confirmed ✅")}
+        onTxError={(e) => console.log("Transaction failed 😔", e)}
       />
     </Layout>
   );
