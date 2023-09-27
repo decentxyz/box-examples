@@ -1,8 +1,30 @@
 import { ActionType, ChainId, TheBox } from '@decent.xyz/the-box';
 import { parseUnits } from 'viem';
 import { Layout } from '@/components/Layouts/Layout';
+import { submitWallet } from '@/lib/trm';
+import { useEffect } from 'react';
+import { useWalletContext } from '@/lib/contexts';
 
 export default function ExamplePage() {
+  const { address, chain } = useWalletContext();
+  async function screenWallet() {
+    let risk = 0;
+    if (address && chain) {
+      risk = await submitWallet(chain?.name, address)
+    };
+    return {
+      disable: risk < 7,
+      message: `not today, criminal. wallet risk: ${risk}`
+    }
+  };
+
+  useEffect(() => {
+    async function loadData() {
+      
+    }
+    loadData()
+  }, [])
+
   return (
     <Layout>
       <h1 className={'font-semibold text-2xl mb-2'}>The Box Example</h1>
@@ -18,6 +40,7 @@ export default function ExamplePage() {
             amount: parseUnits('0.00005', 18),
           },
         }}
+        disableGuard={() => screenWallet()}
         apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
       />
     </Layout>
