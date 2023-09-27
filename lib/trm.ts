@@ -17,19 +17,19 @@ enum RiskMap {
   "High" = 3
 }
 
-function calcRisk(indicators: RiskIndicator[]) {
+const riskThreshold = 7;
+
+function calcWalletRisk(indicators: RiskIndicator[]) {
   let total = 0;
   for (let i = 0; i < indicators.length; i++) {
     let indicator:any = indicators[i];
     total += indicator.categoryRiskScoreLevel * Number(RiskMap[indicator.categoryRiskScoreLevelLabel]);
   }
   const avgRisk = total / indicators.length;
-
   return avgRisk;
 }
 
 export async function submitWallet(chainName: string, walletAddress: Address) {
-
   const resp = await fetch(
     `https://api.trmlabs.com/public/v2/screening/addresses`,
     {
@@ -46,7 +46,9 @@ export async function submitWallet(chainName: string, walletAddress: Address) {
   );
   
   const data = await resp.json();
-  const riskScore = calcRisk(data[0].addressRiskIndicators);
-  
-  return riskScore;
+  const riskScore = calcWalletRisk(data[0].addressRiskIndicators);
+  const risky = riskScore < riskThreshold
+  return risky;
 };
+
+// would also screen based on the outgoing transaction in addition to the wallet: https://documentation.trmlabs.com/tag/Transfers#operation/PublicV2TmTransfersPost

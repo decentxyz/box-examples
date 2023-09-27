@@ -8,22 +8,15 @@ import { useWalletContext } from '@/lib/contexts';
 export default function ExamplePage() {
   const { address, chain } = useWalletContext();
   async function screenWallet() {
-    let risk = 0;
+    let risky = false;
     if (address && chain) {
-      risk = await submitWallet(chain?.name, address)
+      risky = await submitWallet(chain?.name, address)
     };
     return {
-      disable: risk < 7,
-      message: `not today, criminal. wallet risk: ${risk}`
+      disable: risky,
+      message: `not today, criminal.`
     }
   };
-
-  useEffect(() => {
-    async function loadData() {
-      
-    }
-    loadData()
-  }, [])
 
   return (
     <Layout>
