@@ -16,7 +16,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
           )}
         >
           <div>{children}</div>
-          <h1
+          {/* <h1
             className={clsx(
               'flex items-center justify-center',
               'uppercase font-semibold tracking-widest',
@@ -25,7 +25,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
             )}
           >
             The&nbsp;Box
-          </h1>
+          </h1> */}
         </div>
       </div>
     </div>
