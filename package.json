@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@decent.xyz/box-common": "^1.0.6",
-    "@decent.xyz/box-hooks": "^1.0.42",
+    "@decent.xyz/box-hooks": "^1.0.48",
     "@decent.xyz/box-ui": "^1.0.40",
     "@decent.xyz/the-box": "^1.1.59",
     "@rainbow-me/rainbowkit": "^1.0.11",
