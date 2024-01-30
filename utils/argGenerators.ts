@@ -1,15 +1,17 @@
 import { rarible } from './constants/customChains';
 import { createPublicClient, http } from 'viem';
 import { ApiTests } from '@/utils/types';
+import { Web3 } from 'web3';
 
 export const generateArgsMultiHop = async (sender: string) => {
   const AMOUNT = 1000000000000n;
   const BUFFER = 10_00n; // 10% BPS
 
-  const publicClient = createPublicClient({
-    chain: rarible,
-    transport: http(),
-  });
+  var web3 = new Web3('https://mainnet.rpc.rarichain.org/http');
+  const { baseFeePerGas } = await web3.eth.getBlock('pending');
+  if (!baseFeePerGas) throw new Error('no base fee');
+  const PRIORITY_FEE = 2500000000n;
+  const maxFeePerGas = (2n * baseFeePerGas) + PRIORITY_FEE;
 
   const to = sender;
   const l2CallValue = AMOUNT;
@@ -17,7 +19,6 @@ export const generateArgsMultiHop = async (sender: string) => {
   const excessFeeRefundAddress = sender;
   const callValueRefundAddress = sender;
   const gaslimit = 30000n;
-  const { maxFeePerGas } = await publicClient.estimateFeesPerGas();
   const data = '0x';
 
   return [
