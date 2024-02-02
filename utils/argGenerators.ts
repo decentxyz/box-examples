@@ -13,7 +13,7 @@ export const generateArgsMultiHop = async (sender: string) => {
 
   const to = sender;
   const l2CallValue = AMOUNT;
-  const maxSubmissionCost = AMOUNT + AMOUNT * BUFFER / 100_00n;
+  const maxSubmissionCost = AMOUNT + (AMOUNT * BUFFER) / 100_00n;
   const excessFeeRefundAddress = sender;
   const callValueRefundAddress = sender;
   const gaslimit = 30000n;
@@ -30,7 +30,7 @@ export const generateArgsMultiHop = async (sender: string) => {
     maxFeePerGas,
     data,
   ];
-}
+};
 
 type ArgGenerator = (...args: any[]) => Promise<any[]>;
 

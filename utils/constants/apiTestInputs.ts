@@ -124,7 +124,7 @@ const apiTestInputs: Record<ApiTests, BoxActionRequest> = {
 
 export const createBoxActionRequest = async (
   sender: Address,
-  apiTest: ApiTests,
+  apiTest: ApiTests
 ): Promise<BoxActionRequest> => {
   const request = apiTestInputs[apiTest];
   const args = await argGenerators[apiTest]?.(sender);
@@ -134,6 +134,6 @@ export const createBoxActionRequest = async (
     actionConfig: {
       ...request.actionConfig,
       args,
-    }
-  }
-}
+    },
+  };
+};
