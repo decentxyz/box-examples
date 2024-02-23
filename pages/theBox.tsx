@@ -12,7 +12,6 @@ export default function ExamplePage() {
       <CodeBlock>{`import '@decent.xyz/the-box/index.css';`}</CodeBlock>
       <TheBox
         className="rounded-lg border shadow-md bg-white dark"
-        paymentButtonText="MINT ME"
         actionType={ActionType.NftMint}
         actionConfig={{
           contractAddress: '0x3007E0eB44222AC69E1D3c93A9e50F9CA73F53a1',
@@ -21,6 +20,9 @@ export default function ExamplePage() {
             isNative: true,
             amount: parseUnits('0.00005', 18),
           },
+        }}
+        boxSettings={{
+          paymentButtonText: 'MINT ME',
         }}
         apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
       />

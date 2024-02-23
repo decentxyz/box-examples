@@ -139,18 +139,17 @@ export const Usage = () => {
     actionType: ActionType.NftMint,
     actionConfig: {
       contractAddress: '0x3007E0eB44222AC69E1D3c93A9e50F9CA73F53a1',
-      chainId: ChainId.ARBITRUM,
       cost: {
         isNative: true,
         amount: parseUnits('0.00005', 18),
       },
     },
+    dstToken: '0x0000000000000000000000000000000000000000', // ETH
+    dstChainId: ChainId.ARBITRUM,
     srcChainId: ChainId.POLYGON,
     sender: sender!,
     slippage: 1, // 1%
     srcToken: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174', // USDC on Polygon
-    dstToken: '0x0000000000000000000000000000000000000000', // ETH
-    dstChainId: ChainId.ARBITRUM,
   };
 
   return (
