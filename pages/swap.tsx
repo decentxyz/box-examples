@@ -1,5 +1,5 @@
 import { Layout } from '@/components/Layouts/Layout';
-import { useAccount } from 'wagmi';
+import { useAccount, useBalance } from 'wagmi';
 import { ClientRendered } from '@decent.xyz/box-ui';
 import {
   ChainId,
@@ -10,14 +10,33 @@ import "@decent.xyz/the-box/index.css";
 
 const Swap = () => {
   const { address } = useAccount();
+  const {data } = useBalance({
+    chainId: ChainId.DEGEN, 
+    address: '0xd2cb3ccc522b5d36a20334d101791eb3c3384281'
+  });
+  console.log("Test balance: ", data)
+
+  const myTheme = {
+    mainBgColor: '#121212', 
+    mainTextColor: '#ffffff',
+    tokenSwapCardBgColor: '#1B1B1B',
+    buyBtnBgColor: '#8236FD',
+    buyBtnTextColor: '#ffffff',
+    switchBtnBgColor: '#3A3842',
+    tokenDialogHoverColor: '#444444',
+    boxSubtleColor1: '#999999',
+    borderColor: '#27252B',
+    borderRadius: '0',
+    loadShineColor1: "#121212",
+    loadShineColor2: "#333333",
+  }
 
   return (
     <Layout>
       <ClientRendered>
-        <BoxThemeProvider theme={darkTheme}>
+        <BoxThemeProvider theme={myTheme}>
           <SwapModal
-            className="bg-black"
-            apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
+            apiKey={process.env.NEXT_PUBLIC_NEW_DECENT_API_KEY as string}
             address={address}
             chainIds={[
               ChainId.OPTIMISM,
@@ -25,8 +44,9 @@ const Swap = () => {
               ChainId.RARIBLE,
               ChainId.ARBITRUM,
               ChainId.BASE,
+              ChainId.ZORA,
             ]}
-            selectedRecipientToken={{
+            selectedDstToken={{
               chainId: ChainId.DEGEN,
               tokenInfo: nativeTokenInfoLookup[ChainId.DEGEN],
             }}
