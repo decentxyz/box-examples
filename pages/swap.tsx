@@ -45,6 +45,7 @@ const Swap = () => {
               ChainId.ARBITRUM,
               ChainId.BASE,
               ChainId.ZORA,
+              ChainId.DEGEN
             ]}
             selectedDstToken={{
               chainId: ChainId.DEGEN,
