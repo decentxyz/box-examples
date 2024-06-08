@@ -1,4 +1,3 @@
-
 export const optimismSepolia = {
   id: 11155420,
   name: 'Optimism Sepolia',
@@ -110,9 +109,9 @@ export const degen = {
   },
   blockExplorers: {
     default: {
-      name: "Degen Chain Explorer",
-      url: "https://explorer.degen.tips",
-      apiUrl: "https://explorer.degen.tips/api/v2",
+      name: 'Degen Chain Explorer',
+      url: 'https://explorer.degen.tips',
+      apiUrl: 'https://explorer.degen.tips/api/v2',
     },
   },
   testnet: false,
@@ -133,9 +132,32 @@ export const xai = {
   },
   blockExplorers: {
     default: {
-      name: "Degen Chain Explorer",
-      url: "https://explorer.xai-chain.net",
-      apiUrl: "https://explorer.xai-chain.net/api/v2",
+      name: 'Degen Chain Explorer',
+      url: 'https://explorer.xai-chain.net',
+      apiUrl: 'https://explorer.xai-chain.net/api/v2',
+    },
+  },
+  testnet: false,
+};
+
+export const cheese = {
+  id: 383353,
+  name: 'cheese',
+  network: 'cheese',
+  nativeCurrency: { name: 'Cheese', symbol: 'CHEESE', decimals: 18 },
+  rpcUrls: {
+    default: {
+      http: ['https://cheesechain.calderachain.xyz/http'],
+    },
+    public: {
+      http: ['https://cheesechain.calderachain.xyz/http'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'Cheese Chain Explorer',
+      url: 'https://cheesechain.calderaexplorer.xyz',
+      apiUrl: 'https://cheesechain.calderaexplorer.xyz',
     },
   },
   testnet: false,
