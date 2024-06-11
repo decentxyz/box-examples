@@ -1,6 +1,6 @@
 import { Layout } from '@/components/Layouts/Layout';
 import { ClientRendered } from '@decent.xyz/box-ui';
-import { ChainId, nativeTokenInfoLookup } from '@decent.xyz/box-common';
+import { ChainId, getNativeTokenInfo } from '@decent.xyz/box-common';
 import { SwapModal, BoxThemeProvider } from '@decent.xyz/the-box';
 import '@decent.xyz/the-box/index.css';
 import { wagmiConfig } from '@/utils/wagmiConfig';
@@ -24,11 +24,11 @@ const Swap = () => {
           ]}
           selectedSrcToken={{
             chainId: ChainId.ETHEREUM,
-            tokenInfo: nativeTokenInfoLookup[ChainId.ETHEREUM],
+            tokenInfo: getNativeTokenInfo(ChainId.ETHEREUM),
           }}
           selectedDstToken={{
             chainId: ChainId.EDGELESS,
-            tokenInfo: nativeTokenInfoLookup[ChainId.EDGELESS],
+            tokenInfo: getNativeTokenInfo(ChainId.EDGELESS),
           }}
           wagmiConfig={wagmiConfig}
         />

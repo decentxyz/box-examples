@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { CodeBlock, H2, P } from '@/components/common';
 import { prettyPrint } from '@/pages/boxHooks';
 import { BoxHooksContextProvider } from '@decent.xyz/box-hooks';
-import { ChainId, ethGasToken, TokenInfo } from '@decent.xyz/box-common';
+import { ChainId, getNativeTokenInfo, TokenInfo } from '@decent.xyz/box-common';
 
 export const TokenSelectorUsage = ({ chainId }: { chainId: ChainId }) => {
   const { address } = useAccount();
-  const [srcToken, setSrcToken] = useState<TokenInfo>(ethGasToken);
+  const [srcToken, setSrcToken] = useState<TokenInfo>(getNativeTokenInfo(ChainId.ETHEREUM)!);
 
   return (
     <div className={'mt-10'}>
