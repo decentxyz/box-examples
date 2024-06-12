@@ -4,8 +4,10 @@ import { ChainId, getNativeTokenInfo } from '@decent.xyz/box-common';
 import { SwapModal, BoxThemeProvider } from '@decent.xyz/the-box';
 import '@decent.xyz/the-box/index.css';
 import { wagmiConfig } from '@/utils/wagmiConfig';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 const Swap = () => {
+  const { openConnectModal } = useConnectModal();
 
   return (
     <Layout>
@@ -31,6 +33,7 @@ const Swap = () => {
             tokenInfo: getNativeTokenInfo(ChainId.EDGELESS),
           }}
           wagmiConfig={wagmiConfig}
+          onConnectWallet={() => openConnectModal}
         />
       </ClientRendered>
     </Layout>

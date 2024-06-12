@@ -4,10 +4,13 @@ import { Layout } from '@/components/Layouts/Layout';
 import { CodeBlock, P } from '@/components/common';
 import { ActionType, ChainId } from '@decent.xyz/box-common';
 import { wagmiConfig } from '@/utils/wagmiConfig';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import '@decent.xyz/the-box/index.css';
 
 export default function ExamplePage() {
+  const { openConnectModal } = useConnectModal();
+
   return (
     <Layout>
       <h1 className={'font-semibold text-2xl mb-2'}>The Box Example</h1>
@@ -27,6 +30,7 @@ export default function ExamplePage() {
         }}
         apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
         wagmiConfig={wagmiConfig}
+        onConnectWallet={() => openConnectModal}
       />
     </Layout>
   );
