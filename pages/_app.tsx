@@ -8,37 +8,12 @@ import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { wagmiConfig } from '@/utils/wagmiConfig';
 
 // Default styles that can be overridden by your app
-// import { arbitrum, mainnet, optimism, polygon, base, avalanche, zora } from 'wagmi/chains';
 if (process.env.NODE_ENV !== 'development') {
   // @ts-ignore
   import('@decent.xyz/the-box/index.css').then(() => {
     console.log('💅🏼 box styles imported');
   });
 }
-// import { arbitrumGoerli } from 'viem/chains';
-// import {
-//   optimismSepolia,
-//   arbitrumSepolia,
-//   rarible,
-//   raribleTestnet,
-// } from '../utils/constants/customChains';
-
-  // [
-  //   mainnet,
-  //   arbitrum,
-  //   optimism,
-  //   polygon,
-  //   base,
-  //   arbitrumGoerli,
-  //   optimismSepolia,
-  //   arbitrumSepolia,
-  //   rarible,
-  //   raribleTestnet,
-  //   avalanche,
-  //   zora
-  // ],
-
-// const projectId = process.env['PROJECT_ID'] || 'your-mom';
 
 const queryClient = new QueryClient()
 
