@@ -4,8 +4,8 @@ import { wagmiSetup } from '@decent.xyz/box-common';
 const { chains, transports } = wagmiSetup;
 
 export const wagmiConfig = getDefaultConfig({
-  appName: 'RainbowKit demo',
-  projectId: process.env['PROJECT_ID'] || 'your-mom',
+  appName: 'Decent Demo',
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID as string,
   chains,
   transports,
   ssr: true,
