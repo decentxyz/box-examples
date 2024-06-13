@@ -71,7 +71,6 @@ export const BoxActionUser = ({
           try {
             const account = getAccount(wagmiConfig);
             const publicClient = getPublicClient(wagmiConfig);
-            console.log({chain, srcChainId})
             if (chain?.id !== srcChainId) {
               await switchChainAsync?.({ chainId: Number(srcChainId) });
             }

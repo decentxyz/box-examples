@@ -53,7 +53,7 @@ export default function ExamplePage() {
         setTxHash(hash);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
