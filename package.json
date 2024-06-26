@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@decent.xyz/box-common": "^2.1.0",
-    "@decent.xyz/box-evm": "^2.1.0",
-    "@decent.xyz/box-hooks": "^2.1.0",
-    "@decent.xyz/box-ui": "^2.1.0",
-    "@decent.xyz/the-box": "^2.1.0",
+    "@decent.xyz/box-common": "workspace:*",
+    "@decent.xyz/box-evm": "workspace:*",
+    "@decent.xyz/box-hooks": "workspace:*",
+    "@decent.xyz/box-ui": "workspace:*",
+    "@decent.xyz/the-box": "workspace:*",
     "@rainbow-me/rainbowkit": "^2.0.7",
     "@tanstack/react-query": ">=5.0.0",
     "@types/node": "18.15.11",
