@@ -22,7 +22,7 @@ const Swap = () => {
             ChainId.ARBITRUM,
             ChainId.ZORA,
             ChainId.POLYGON,
-            ChainId.RARIBLE,
+            ChainId.RARI,
           ]}
           selectedSrcToken={{
             chainId: ChainId.ETHEREUM,
