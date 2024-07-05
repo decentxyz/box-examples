@@ -11,7 +11,7 @@ import {
   EstimateGasParameters,
   Hex,
   parseUnits,
-  TransactionReceipt,
+  TransactionReceipt
 } from 'viem';
 import { useAccount, useSwitchChain } from 'wagmi';
 import { ClientRendered } from '@decent.xyz/box-ui';
@@ -19,17 +19,21 @@ import {
   getAccount,
   getPublicClient,
   sendTransaction,
-  waitForTransaction,
+  waitForTransactionReceipt,
 } from '@wagmi/core';
 import { Button, CodeBlock, H1, H2, P } from '@/components/common';
 import {
   ActionType,
   bigintSerializer,
+  BoxActionResponse,
   ChainId,
   EvmTransaction,
   getChainExplorerTxLink,
 } from '@decent.xyz/box-common';
+
 import { wagmiConfig } from '@/utils/wagmiConfig';
+import { createKernelClient, entryPoint } from '@/utils/kernelConfig';
+import { bundlerActions } from 'permissionless';
 
 export const prettyPrint = (obj: any) =>
   JSON.stringify(obj, bigintSerializer, 2);
@@ -63,40 +67,77 @@ export const BoxActionUser = ({
     return <CodeBlock>Fetching box action...</CodeBlock>;
   }
 
+  async function sendZeroDevTx(actionResponse: BoxActionResponse){
+    try {
+      const kernelClient = await createKernelClient();
+  
+      const tx = actionResponse.tx as EvmTransaction;
+
+      const userOpHash = await kernelClient.sendUserOperation({
+        userOperation: {
+          callData: await kernelClient.account.encodeCallData({
+            to: tx.to as `0x${string}`,
+            value: tx.value as bigint,
+            data: tx.data as `0x${string}`,
+          })
+        }
+      })
+       
+      const bundlerClient = kernelClient.extend(bundlerActions(entryPoint));
+      const txReceipt = await bundlerClient.waitForUserOperationReceipt({
+        hash: userOpHash,
+      })
+
+      console.log("Tx receipt: ", txReceipt);
+      console.log("View completed UserOp here: https://jiffyscan.xyz/userOpHash/" + userOpHash)
+    } catch (e) {
+      console.log("Error in zero dev tx: ", e);
+    }
+  }
+
   return (
     <div className={'max-w-4xl'}>
       <CodeBlock className={'mb-4'}>{prettyPrint(actionResponse)}</CodeBlock>
-      <Button
-        onClick={async () => {
-          try {
-            const account = getAccount(wagmiConfig);
-            const publicClient = getPublicClient(wagmiConfig);
-            console.log({chain, srcChainId})
-            if (chain?.id !== srcChainId) {
-              await switchChainAsync?.({ chainId: Number(srcChainId) });
-            }
-            const tx = actionResponse.tx as EvmTransaction;
-            const gas = await publicClient?.estimateGas({
-              account,
-              ...tx,
-            } as unknown as EstimateGasParameters);
-            const hash = await sendTransaction(wagmiConfig, {
-              ...tx,
-              gas,
-            });
-            setHash(hash);
-            // catch viem polygon error
+      <div className='w-full flex justify-between gap-4 flex-wrap'>
+        <Button
+          onClick={async () => {
             try {
-              const receipt = await waitForTransaction(wagmiConfig, { hash });
-              setSrcTxReceipt(receipt);
-            } catch (e) {}
-          } catch (e) {
-            console.error(e);
-          }
-        }}
-      >
-        Send This Tx!
-      </Button>
+              const account = getAccount(wagmiConfig);
+              const publicClient = getPublicClient(wagmiConfig);
+              console.log({chain, srcChainId})
+              if (chain?.id !== srcChainId) {
+                await switchChainAsync?.({ chainId: Number(srcChainId) });
+              }
+              const tx = actionResponse.tx as EvmTransaction;
+              const gas = await publicClient?.estimateGas({
+                account,
+                ...tx,
+              } as unknown as EstimateGasParameters);
+              const hash = await sendTransaction(wagmiConfig, {
+                ...tx,
+                gas,
+              });
+              setHash(hash);
+              // catch viem polygon error
+              try {
+                const receipt = await waitForTransactionReceipt(wagmiConfig, { hash });
+                setSrcTxReceipt(receipt);
+              } catch (e) {}
+            } catch (e) {
+              console.error(e);
+            }
+          }}
+        >
+          Send Tx Using EOA
+        </Button>
+
+        <Button
+          onClick={() => sendZeroDevTx(actionResponse)}
+        >
+          Send Tx Using Smart Account
+        </Button>
+      </div>
+
       {hash && (
         <div className={'mt-6'}>
           <H2>TX Hash:</H2>
@@ -149,13 +190,13 @@ export const Usage = () => {
         amount: parseUnits('0.00001', 18),
       },
       signature: 'function mint(address to,uint256 numberOfTokens)',
-      args: [sender || vitalik, 1n],
+      args: [sender || vitalik, 1n], // need to replace with smart contract wallet address if using smart accounts
     },
-    srcChainId: ChainId.BASE,
+    srcChainId: ChainId.ARBITRUM, // need to make sure submitting userOp to correct entry point contract if using smart accounts
     sender: sender!,
     slippage: 1, // 1%
     srcToken: '0x0000000000000000000000000000000000000000',
-    dstToken: '0x0000000000000000000000000000000000000000', // USDC
+    dstToken: '0x0000000000000000000000000000000000000000',
     dstChainId: ChainId.ARBITRUM,
   };
 
@@ -178,7 +219,7 @@ export default function ExamplePage() {
     <Layout>
       <ClientRendered>
         <BoxHooksContextProvider
-          apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
+          apiKey={process.env.NEXT_PUBLIC_NEW_DECENT_API_KEY as string}
         >
           <div className={'max-w-5xl '}>
             <H1>Box Hooks</H1>
