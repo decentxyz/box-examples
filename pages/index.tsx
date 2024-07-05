@@ -5,6 +5,7 @@ export default function BoxSplashPage() {
   const examples = [
     { title: 'The Box', link: '/theBox' },
     { title: 'Swap Modal', link: '/swap' },
+    { title: 'Onboarding Modal', link: '/onboarding' },
     { title: 'Box Hooks', link: '/boxHooks' },
     { title: 'Box UI', link: '/boxUi' },
     { title: 'Fiat Checkout', link: '/fiatCheckout' },
