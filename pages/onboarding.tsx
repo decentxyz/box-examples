@@ -1,7 +1,7 @@
 import { Layout } from '@/components/Layouts/Layout';
 import { ClientRendered } from '@decent.xyz/box-ui';
-import { ChainId, TokenId, TokenInfo, getNativeTokenInfo } from '@decent.xyz/box-common';
-import { SwapModal, OnboardingModal } from '@decent.xyz/the-box';
+import { ChainId } from '@decent.xyz/box-common';
+import { OnboardingModal } from '@decent.xyz/the-box';
 import '@decent.xyz/the-box/index.css';
 import { wagmiConfig } from '@/utils/wagmiConfig';
 import { useConnectModal } from '@rainbow-me/rainbowkit';

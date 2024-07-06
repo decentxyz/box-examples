@@ -1,7 +1,7 @@
 import { Layout } from '@/components/Layouts/Layout';
 import { ClientRendered } from '@decent.xyz/box-ui';
 import { ChainId, TokenInfo, getNativeTokenInfo } from '@decent.xyz/box-common';
-import { SwapModal, BoxThemeProvider } from '@decent.xyz/the-box';
+import { SwapModal } from '@decent.xyz/the-box';
 import '@decent.xyz/the-box/index.css';
 import { wagmiConfig } from '@/utils/wagmiConfig';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
@@ -25,12 +25,12 @@ const Swap = () => {
             ChainId.RARI,
           ]}
           selectedSrcToken={{
-            chainId: ChainId.ETHEREUM,
-            tokenInfo: getNativeTokenInfo(ChainId.ETHEREUM) as TokenInfo,
+            chainId: ChainId.ARBITRUM,
+            tokenInfo: getNativeTokenInfo(ChainId.ARBITRUM) as TokenInfo,
           }}
           selectedDstToken={{
-            chainId: ChainId.EDGELESS,
-            tokenInfo: getNativeTokenInfo(ChainId.EDGELESS) as TokenInfo,
+            chainId: ChainId.BASE,
+            tokenInfo: getNativeTokenInfo(ChainId.BASE) as TokenInfo,
           }}
           wagmiConfig={wagmiConfig}
           onConnectWallet={() => openConnectModal}
