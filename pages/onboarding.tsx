@@ -36,6 +36,7 @@ const Swap = () => {
               ChainId.ZORA,
               ChainId.MODE
             ]}
+            sendInfoTooltip='Add your onboarding explanation here.'
           />
         </div>
       </ClientRendered>
