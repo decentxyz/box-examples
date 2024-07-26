@@ -1,5 +1,5 @@
 import { BoxTheme, ClientRendered } from '@decent.xyz/box-ui';
-import { BoxThemeProvider, darkTheme, SwapModal } from '@decent.xyz/the-box';
+import { BoxThemeProvider, swapDarkTheme, SwapModal } from '@decent.xyz/the-box';
 import { ChainId, getNativeTokenInfo, TokenInfo } from '@decent.xyz/box-common';
 import { wagmiConfig } from '@/utils/wagmiConfig';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
@@ -11,24 +11,8 @@ const PageContent = () => {
   const { openConnectModal } = useConnectModal();
 
   const [theme, setTheme] = useState<BoxTheme>({
-    mainBgColor: '#121212',
-    mainTextColor: '#ffffff',
-    tokenSwapCardBgColor: '#1B1B1B',
-    buyBtnBgColor: '#8236FD',
-    buyBtnTextColor: '#ffffff',
-    switchBtnBgColor: '#3A3842',
-    tokenDialogHoverColor: '#444444',
-    boxSubtleColor1: '#999999',
-    borderColor: '#27252B',
+    ...swapDarkTheme,
     borderRadius: '0px',
-    loadShineColor1: '#121212',
-    loadShineColor2: '#333333',
-    greenBadgeTextColor: '#11BC91',
-    greenBadgeBgColor: '#123129',
-    yellowBadgeTextColor: '#FF8B31',
-    yellowBadgeBgColor: '#3D2818',
-    circleLinkChainColor: '#9969FF',
-    circleLinkBgColor: '#261D3C',
     buyBtnBorderRadius: '1rem',
   });
 
@@ -79,7 +63,7 @@ const PageContent = () => {
 
 export default function Page() {
   return (
-    <div className='min-h-screen pt-40 bg-[#F8F9FD]'>
+    <div className="min-h-screen pt-40 bg-[#F8F9FD]">
       <NavBar />
       <ClientRendered>
         <PageContent />
