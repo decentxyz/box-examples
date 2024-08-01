@@ -45,16 +45,8 @@ export const BoxActionUser = ({
   const [hash, setHash] = useState<Hex>();
   const { switchChainAsync } = useSwitchChain();
   const { chain } = useAccount();
-  const bridgeId = actionResponse?.bridgeId;
   const { srcChainId, dstChainId } = getActionArgs;
   const [srcTxReceipt, setSrcTxReceipt] = useState<TransactionReceipt>();
-  const { receipt: _dstTxReceipt } = useBridgeReceipt({
-    bridgeId,
-    srcChainId,
-    dstChainId,
-    srcTxHash: hash,
-  });
-  const dstTxReceipt = _dstTxReceipt as TransactionReceipt;
 
   if (error) {
     return <CodeBlock>Error fetching: {prettyPrint(error)}</CodeBlock>;
@@ -109,27 +101,6 @@ export const BoxActionUser = ({
           >
             view on explorer
           </a>
-        </div>
-      )}
-      {srcTxReceipt && srcChainId !== dstChainId && (
-        <div className={'mt-6'}>
-          <H2>Bridged TX Hash:</H2>
-          <CodeBlock>
-            {dstTxReceipt
-              ? dstTxReceipt.transactionHash
-              : 'Waiting for bridged tx confirmation...'}
-          </CodeBlock>
-          {dstTxReceipt?.transactionHash && (
-            <a
-              href={getChainExplorerTxLink(
-                dstChainId,
-                dstTxReceipt?.transactionHash
-              )}
-              className={'text-blue-500'}
-            >
-              view on explorer
-            </a>
-          )}
         </div>
       )}
     </div>
