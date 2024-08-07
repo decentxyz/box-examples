@@ -29,7 +29,6 @@ const PageContent = () => {
   const [showTokenSelector, setShowTokenSelector] = useState(false);
   const [showBalanceSelector, setShowBalanceSelector] = useState(true);
   const [showBalanceSelector2, setShowBalanceSelector2] = useState(true);
-  const [openToSide, setOpenToSide] = useState(false);
   const [selectChains, setSelectChains] = useState<ChainId[]>([
     ChainId.ETHEREUM,
     ChainId.OPTIMISM,
@@ -79,17 +78,8 @@ const PageContent = () => {
             <BoxThemeProvider theme={theme}>
               {showBalanceSelector && (
                 <>
-                  <label>
-                    <input
-                      type="checkbox"
-                      name=""
-                      id=""
-                      onChange={() => setOpenToSide(!openToSide)}
-                    />
-                    &nbsp;openToSide
-                  </label>
                   <BalanceSelector
-                    className={openToSide ? '' : 'max-h-96 overflow-y-auto'}
+                    className={'max-h-96 overflow-y-auto'}
                     selectedToken={srcToken}
                     setSelectedToken={(tokeninfo) => {
                       setSrcToken(tokeninfo);
@@ -98,7 +88,7 @@ const PageContent = () => {
                     address={address}
                     selectChains={selectChains}
                     selectTokens={selectTokens}
-                    openToSide={openToSide}
+                    openToSide={false}
                     disabled={false}
                   />
                 </>
@@ -116,17 +106,8 @@ const PageContent = () => {
               <div></div>
               {showBalanceSelector2 && (
                 <>
-                  <label>
-                    <input
-                      type="checkbox"
-                      name=""
-                      id=""
-                      onChange={() => setOpenToSide(!openToSide)}
-                    />
-                    &nbsp;openToSide
-                  </label>
                   <BalanceChainSelector
-                    className={' ' + (openToSide ? '' : 'max-h-96 overflow-y-auto')}
+                    className={'max-h-96 overflow-y-auto'}
                     selectedToken={srcToken}
                     setSelectedToken={(tokeninfo) => {
                       setSrcToken(tokeninfo);
@@ -135,7 +116,7 @@ const PageContent = () => {
                     address={address}
                     selectChains={selectChains}
                     selectTokens={selectTokens}
-                    openToSide={openToSide}
+                    openToSide={false}
                     disabled={false}
                   />
                 </>
