@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@decent.xyz/box-common": "^3.1.14",
-    "@decent.xyz/box-hooks": "^3.1.14",
-    "@decent.xyz/box-ui": "^3.1.14",
-    "@decent.xyz/the-box": "^3.1.14",
+    "@decent.xyz/box-common": "^3.1.15",
+    "@decent.xyz/box-hooks": "^3.1.15",
+    "@decent.xyz/box-ui": "^3.1.15",
+    "@decent.xyz/the-box": "^3.1.15",
     "@rainbow-me/rainbowkit": "^2.0.7",
     "@tanstack/react-query": ">=5.0.0",
     "@types/node": "18.15.11",
