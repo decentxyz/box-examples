@@ -1,14 +1,12 @@
-import { createConfig, http } from "wagmi";
-import { mainnet, base, optimism, zora, arbitrum } from "wagmi/chains";
+import { getDefaultConfig } from "@rainbow-me/rainbowkit";
+import { wagmiSetup } from "@decent.xyz/box-common";
 
-// recommend using custom rpc urls
-export const wagmiConfig = createConfig({
-  chains: [mainnet, base, optimism, zora, arbitrum],
-  transports: {
-    [mainnet.id]: http(),
-    [base.id]: http(),
-    [optimism.id]: http(),
-    [zora.id]: http(),
-    [arbitrum.id]: http(),
-  },
+const { chains, transports } = wagmiSetup;
+
+export const wagmiConfig = getDefaultConfig({
+  appName: "Decent Demo",
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID as string,
+  chains,
+  transports,
+  ssr: true,
 });
