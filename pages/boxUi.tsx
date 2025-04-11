@@ -19,11 +19,11 @@ export default function ExamplePage() {
     <Layout>
       <ClientRendered>
         <BoxHooksContextProvider
-          apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
+          apiKey={process.env.NEXT_PUBLIC_DECENT_KEY as string}
         >
           <ClientRendered>
             <BoxHooksContextProvider
-              apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
+              apiKey={process.env.NEXT_PUBLIC_DECENT_KEY as string}
             >
               <div className={'max-w-5xl '}>
                 <H1>Box UI</H1>

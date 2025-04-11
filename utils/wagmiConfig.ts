@@ -1,12 +1,14 @@
-import { getDefaultConfig } from '@rainbow-me/rainbowkit'
-import { wagmiSetup } from '@decent.xyz/box-common';
+import { createConfig, http } from "wagmi";
+import { mainnet, base, optimism, zora, arbitrum } from "wagmi/chains";
 
-const { chains, transports } = wagmiSetup;
-
-export const wagmiConfig = getDefaultConfig({
-  appName: 'RainbowKit demo',
-  projectId: process.env['PROJECT_ID'] || 'your-mom',
-  chains,
-  transports,
-  ssr: true,
+// recommend using custom rpc urls
+export const wagmiConfig = createConfig({
+  chains: [mainnet, base, optimism, zora, arbitrum],
+  transports: {
+    [mainnet.id]: http(),
+    [base.id]: http(),
+    [optimism.id]: http(),
+    [zora.id]: http(),
+    [arbitrum.id]: http(),
+  },
 });

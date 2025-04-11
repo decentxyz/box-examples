@@ -3,20 +3,20 @@ import Link from 'next/link';
 
 export default function BoxSplashPage() {
   const examples = [
-    { title: 'The Box', link: '/theBox' },
+    { title: 'Point of Sale', link: '/theBox' },
     { title: 'Swap Modal', link: '/swap' },
     { title: 'Onboarding Modal', link: '/onboarding' },
-    { title: 'Box Hooks', link: '/boxHooks' },
-    { title: 'Box UI', link: '/boxUi' },
-    { title: 'Fiat Checkout', link: '/fiatCheckout' },
-    { title: 'Box APIs', link: '/boxApis' },
+    { title: 'Decent Hooks', link: '/decentHooks' },
+    { title: 'Decent UI', link: '/decentUi' },
+    { title: 'Decent APIs', link: '/decentApis' },
+    { title: 'UI Package', link: '/boxUi' },
   ];
   return (
     <Layout>
-      <h1 className={'font-semibold text-6xl mb-5'}>The Box Examples!</h1>
+      <h1 className={'font-semibold text-6xl mb-5'}>Decent Examples</h1>
       <p className={'mb-10 text-2xl'}>
-        Welcome to the-box examples project! Here you can find working-versions
-        of the-box.
+        Welcome to the examples project! Here you can find working-versions
+        of Decent API, hooks, and component implementations.
       </p>
       <ul>
         {examples.map(({ title, link }, i) => (

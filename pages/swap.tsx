@@ -13,16 +13,13 @@ const Swap = () => {
     <Layout>
       <ClientRendered>
         <SwapModal
-          apiKey={process.env.NEXT_PUBLIC_NEW_DECENT_API_KEY as string}
+          apiKey={process.env.NEXT_PUBLIC_DECENT_KEY as string}
           chainIds={[
             ChainId.ETHEREUM,
-            ChainId.EDGELESS,
             ChainId.OPTIMISM,
             ChainId.BASE,
             ChainId.ARBITRUM,
             ChainId.ZORA,
-            ChainId.POLYGON,
-            ChainId.RARI,
           ]}
           selectedSrcToken={{
             chainId: ChainId.ARBITRUM,

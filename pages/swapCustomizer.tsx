@@ -33,7 +33,7 @@ const PageContent = () => {
         </div>
         <BoxThemeProvider theme={theme}>
           <SwapModal
-            apiKey={process.env.NEXT_PUBLIC_NEW_DECENT_API_KEY as string}
+            apiKey={process.env.NEXT_PUBLIC_DECENT_KEY as string}
             chainIds={[
               ChainId.ETHEREUM,
               ChainId.EDGELESS,

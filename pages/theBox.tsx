@@ -28,7 +28,7 @@ export default function ExamplePage() {
             amount: parseUnits('0.00005', 18),
           },
         }}
-        apiKey={process.env.NEXT_PUBLIC_DECENT_API_KEY as string}
+        apiKey={process.env.NEXT_PUBLIC_DECENT_KEY as string}
         wagmiConfig={wagmiConfig}
         onConnectWallet={() => openConnectModal}
       />

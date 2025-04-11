@@ -1,13 +1,10 @@
 import {
   Address,
-  bigintSerializer,
   ChainId,
   getNativeTokenInfo,
   TokenInfo,
 } from '@decent.xyz/box-common';
 import {
-  ChainSelector,
-  TokenSelector,
   BalanceSelector,
   BalanceChainSelector,
   BoxThemeProvider,
@@ -18,8 +15,6 @@ import { useState } from 'react';
 import { BoxHooksContextProvider } from '@decent.xyz/box-hooks';
 import { useAccount } from 'wagmi';
 import '@decent.xyz/box-ui/index.css';
-import { onboardingDarkTheme, swapDarkTheme } from '@decent.xyz/the-box';
-import { DefaultLayout } from '@/components/Layouts/DefaultLayout';
 import { NavBar } from '@/components/Layouts/NavBar';
 
 const defaultToken = getNativeTokenInfo(ChainId.ETHEREUM);
@@ -50,7 +45,7 @@ const PageContent = () => {
   });
 
   return (
-    <BoxHooksContextProvider apiKey={process.env.NEXT_PUBLIC_NEW_DECENT_API_KEY as string}>
+    <BoxHooksContextProvider apiKey={process.env.NEXT_PUBLIC_DECENT_KEY as string}>
       <div className="max-w-6xl mx-auto">
         <div className="flex gap-8 justify-center">
           <div>
