@@ -1,14 +1,15 @@
 import { Layout } from "@/components/Layouts/Layout";
 import { ClientRendered } from "@decent.xyz/box-ui";
-import { ChainId } from "@decent.xyz/box-common";
+import { ChainId, ExplorerTypes, getNativeTokenInfo } from "@decent.xyz/box-common";
 import { OnboardingModal } from "@decent.xyz/the-box";
 import "@decent.xyz/the-box/index.css";
 import { wagmiConfig } from "@/utils/wagmiConfig";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
 
 const Swap = () => {
   const { openConnectModal } = useConnectModal();
-  const vitalik = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
+  const { address: account } = useAccount();
 
   return (
     <Layout>
@@ -19,16 +20,8 @@ const Swap = () => {
             wagmiConfig={wagmiConfig}
             onConnectWallet={() => openConnectModal}
             selectedDstToken={{
-              chainId: ChainId.BASE,
-              tokenInfo: {
-                address: "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb",
-                decimals: 18,
-                name: "DAI",
-                chainId: ChainId.BASE,
-                symbol: "DAI",
-                isNative: false,
-                logo: "https://static.alchemyapi.io/images/assets/4943.png",
-              },
+              chainId: ChainId.WORLDCHAIN,
+              tokenInfo: getNativeTokenInfo(ChainId.WORLDCHAIN)!,
             }}
             chainIds={[
               ChainId.ETHEREUM,
@@ -37,8 +30,9 @@ const Swap = () => {
               ChainId.ARBITRUM,
               ChainId.ZORA,
             ]}
+            explorerType={ExplorerTypes.CHAIN} // default will be decentscan; can override for chain default explorer
             sendInfoTooltip="Add your onboarding explanation here."
-            receiverAddress={vitalik}
+            receiverAddress={account} // can set to a different address
           />
         </div>
       </ClientRendered>

@@ -5,6 +5,7 @@ export default function BoxSplashPage() {
   const examples = [
     { title: 'Point of Sale', link: '/theBox' },
     { title: 'Swap Modal', link: '/swap' },
+    { title: 'Swap Modal Theme Customizer', link: '/swapCustomizer' },
     { title: 'Onboarding Modal', link: '/onboarding' },
     { title: 'Decent Hooks', link: '/decentHooks' },
     { title: 'Decent UI', link: '/decentUi' },
