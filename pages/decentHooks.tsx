@@ -30,7 +30,7 @@ import {
   SwapDirection,
 } from "@decent.xyz/box-common";
 import { wagmiConfig } from "@/utils/wagmiConfig";
-import { SwapStatusModal, TxHistory } from "@decent.xyz/the-box";
+import { TxHistory } from "@decent.xyz/the-box";
 
 export const prettyPrint = (obj: any) =>
   JSON.stringify(obj, bigintSerializer, 2);
